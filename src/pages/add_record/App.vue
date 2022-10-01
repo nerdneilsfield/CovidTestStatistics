@@ -3,9 +3,9 @@
 
   <main>
     <div class="title">
-      <h2 id="title">7号楼核酸迟交次数统计</h2>
+      <h2 id="title">添加迟交记录</h2>
     </div>
-    <Stat />
+    <AddRecord />
     <Footer />
   </main>
 </template>
@@ -56,6 +56,6 @@ main {
 </style>
 
 <script setup lang="ts">
-import Stat from "@/components/Stat.vue";
+import AddRecord from "@/components/AddRecord.vue";
 import Footer from "@/components/Footer.vue";
 </script>

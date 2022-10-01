@@ -26,9 +26,9 @@
           v-model="pastedData"
           rows="5"
           clearable
-          label="粘贴表格"
+          label="粘贴用户"
           type="textarea"
-          placeholder="请在这里粘贴复制的表格(每行为学号\t姓名), 注意不要复制头"
+          placeholder="请在这里粘贴复制的用户表格(每行为学号\t姓名), 注意不要复制头"
         />
       </van-cell-group>
       <div style="margin: 16px">
@@ -115,13 +115,27 @@ export default defineComponent({
       loading.value = true;
       const data = pastedData.value;
       const lines = data.split("\n");
-      userList.value = lines.map((line) => {
+      const splitData = lines.map((line) => {
         const [id, name] = line.split("\t");
-        return [id, name];
+        if (id !== null && name !== null) {
+          return [id, name];
+        } else {
+          return null;
+        }
       });
+      //       console.log(splitData);
+      // remove empty lines
+      userList.value = splitData.filter(
+        (item) =>
+          item != null &&
+          item.length === 2 &&
+          item[0] != undefined &&
+          item[1] != undefined
+      );
       //       console.log(userList.value);
       Notify(`解析了 ${userList.value.length} 个用户记录`);
       displayStr.value = `解析了 ${userList.value.length} 个用户记录`;
+      console.log(displayStr.value);
       loading.value = false;
       finished.value = true;
     };
@@ -137,6 +151,7 @@ export default defineComponent({
       if (userListToUpload.length === 0) {
         Notify("请先解析表格或者无用户可以上传");
         displayStr.value = `请先解析表格或者无用户可以上传`;
+        console.log(displayStr.value);
         return;
       }
 
@@ -148,9 +163,11 @@ export default defineComponent({
       if (userAuthData1.user !== null) {
         Notify("登录成功");
         displayStr.value = `登录成功`;
+        console.log(displayStr.value);
       } else {
         Notify("登录失败");
         displayStr.value = `登录失败`;
+        console.log(displayStr.value);
         return;
       }
 
@@ -158,7 +175,7 @@ export default defineComponent({
       const alreadyUserListId = alreadyUserList.map(
         (user) => user.school_id as Number
       );
-//       console.log(alreadyUserListId);
+      //       console.log(alreadyUserListId);
 
       // for user in userListToUpload:
       for (let i = 0; i < userListToUpload.length; i++) {
@@ -168,12 +185,20 @@ export default defineComponent({
         if (alreadyUserListId.includes(user.school_id)) {
           Notify(`用户 ${user.name} 已存在`);
           displayStr.value = `用户 ${user.name} 已存在`;
+          console.log(displayStr.value);
         } else {
-        //   console.log("creting user");
+          //   console.log("creting user");
           // 必须防止并发写入，不然会失败
           const userRecord = await client.records.create("users", user);
-          console.log(`用户 ${user.name} 创建成功`);
-        //   console.log("userRecord", userRecord);
+          if (userRecord !== null) {
+            console.log(`用户 ${user.name} 创建成功`);
+            console.log(displayStr.value);
+          } else {
+            console.log(`用户 ${user.name} 创建失败`);
+            console.log(displayStr.value);
+          }
+
+          //   console.log("userRecord", userRecord);
         }
       }
       displayStr.value = `上传完毕`;
