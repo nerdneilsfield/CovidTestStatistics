@@ -104,7 +104,7 @@ export default defineComponent({
       }
     };
 
-    const onNextPage = async () => {
+    const onNextPage = async () =>  {
       currentPage.value += 1;
       await onLoad();
     };
