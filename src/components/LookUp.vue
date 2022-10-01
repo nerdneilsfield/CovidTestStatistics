@@ -15,7 +15,7 @@
       </van-cell-group>
       <div style="margin: 16px">
         <van-button round block type="primary" native-type="submit">
-          提交
+          查询
         </van-button>
       </div>
     </van-form>
@@ -89,7 +89,7 @@ export default defineComponent({
           "late_record",
           200 /* batch size */,
           {
-            sort: "-updated",
+            sort: "-date",
             filter: "school_id = " + values.school_id,
           }
         );
@@ -98,7 +98,7 @@ export default defineComponent({
         finished.value = true;
 
         lateList.value = lateListGet.map((item: any) => {
-          return [item.school_id, item.updated];
+          return [item.school_id, item.date];
         });
 
         // console.log(lateList.value.length);

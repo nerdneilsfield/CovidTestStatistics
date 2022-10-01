@@ -3,7 +3,7 @@
 
   <main>
     <div class="title">
-      <h2 id="title">上海科技大学7号楼核酸迟交次数查询系统</h2>
+      <h2 id="title">7号楼核酸迟交次数查询系统</h2>
     </div>
     <LookUp />
     <Footer />
@@ -48,6 +48,6 @@ main {
 </style>
 
 <script setup lang="ts">
-import LookUp from "./components/LookUp.vue";
-import Footer from "./components/Footer.vue";
+import LookUp from "@/components/LookUp.vue";
+import Footer from "@/components/Footer.vue";
 </script>
