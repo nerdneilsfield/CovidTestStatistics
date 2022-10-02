@@ -28,8 +28,8 @@
 
 ## 部署
 
-使用 `Docker` 搭配 `docker-compose.yml` 来进行生产环境的部署。
+使用 `Docker` 搭配 `docker-compose` 来进行生产环境的部署。
 
-1. 下载安装 `Docker` 和 `docker-compose.yml`
+1. 下载安装 `Docker` 和 `docker-compose`
 2. 使用 `docker-compose` 启动命令: `docker-compose up -d` 会自动从 `Dockerfile` 编译并启动 `docker`
 3. 使用 `nginx.conf` 来做端口转发和负载均衡，具体请自己查看相关教程
