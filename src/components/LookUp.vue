@@ -62,7 +62,7 @@ import { defineComponent, ref } from "vue";
 import { Notify } from "vant";
 import PocketBase from "pocketbase";
 
-const client = new PocketBase("http://172.18.194.150:9091");
+const client = new PocketBase(window.location.origin);
 
 export default defineComponent({
   name: "LookUp",
