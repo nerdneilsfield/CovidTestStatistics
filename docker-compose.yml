@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    covoid_late_statistics:
+        container_name: covoid_late_statistics
+        build: .
+        image: covoid_late_statistics:latest
+        volumes:
+          - ./data:/pb_data
+        networks:
+          - proxy
+          
+networks:
+  proxy:
+    external: true
